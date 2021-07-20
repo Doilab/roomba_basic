@@ -206,7 +206,7 @@ int send_play_song_command(int song, int port_in)
     sbuf[0]=RB_PLAY;
     sbuf[1]=(unsigned char)song;//1バイト分セット．usigned charに型セット
 
-	s->send(sbuf,byte);//コマンド送信．再生要求
+	s->send(sbuf,byte);//コマンド送信．
 
 	return byte;
 
@@ -219,7 +219,7 @@ int send_seek_dock_command(int port_in)
 	char *sbuf=roomba[port_in].sbuf;
 
     sbuf[0]=RB_SEEK_DOCK;
-	s->send(sbuf,byte);//コマンド送信．ドック帰還要求
+	s->send(sbuf,byte);//コマンド送信．ドック帰還
 
 	return byte;
 
@@ -507,6 +507,7 @@ void print_keys(void)
 	printf("i: init sensor\n");
 	printf("v: vacuum on\n");
 	printf("b: vacuum off\n");
+	printf("w: dock\n");
 	printf("---------------------\n");
 }
 
