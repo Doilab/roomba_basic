@@ -114,8 +114,8 @@ void comport_scan()
     printf("COM port scanning. Available ports: ...\n");
     for(int i=1;i<=32;i++)
     {
-        //sprintf(port_str,"\\\\.\\COM%d",i); //for windows
-        sprintf(port_str,"/dev/ttyS%d",i); //for linux
+        sprintf(port_str,"\\\\.\\COM%d",i); //for windows
+        //sprintf(port_str,"/dev/ttyS%d",i); //for linux
         res=s1.init(port_str,115200);//‰Šú‰»
         if(res==true)
         {
