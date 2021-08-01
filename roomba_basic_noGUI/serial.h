@@ -1,7 +1,7 @@
-//ƒVƒŠƒAƒ‹’ÊM\‘¢‘Ìclass serial
+//ã‚·ãƒªã‚¢ãƒ«é€šä¿¡æ§‹é€ ä½“class serial
 //serial.cpp,h
 //modified 060530
-//windows/linuxƒNƒƒXƒvƒ‰ƒbƒgƒtƒH[ƒ€
+//windows/linuxã‚¯ãƒ­ã‚¹ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ 
 //---------------------------------------------------------------------------
 #ifndef serialH
 #define serialH
@@ -10,17 +10,17 @@
 class serial
 {
 public:
-    char flag_opened;//comƒ|[ƒg‚ªŠJ‚©‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
-    char comport[16];//comƒ|[ƒg–¼
-    int baudrate;//ƒ{[ƒŒ[ƒg‚ğ‚±‚±‚Éo—Í
+    char flag_opened;//comãƒãƒ¼ãƒˆãŒé–‹ã‹ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹
+    char comport[16];//comãƒãƒ¼ãƒˆå
+    int baudrate;//ãƒœãƒ¼ãƒ¬ãƒ¼ãƒˆã‚’ã“ã“ã«å‡ºåŠ›
 
     bool init(char *comport_in,int baudrate);
     bool close(void);
-    void purge(void);//WinAPI‚ÌPurgeComm‚ğÀs‚·‚é
-    int receive(char *buf_ptr,int size);//ó‚¯æ‚éƒoƒbƒtƒ@‚ÌêŠ‚ÆƒTƒCƒY
-    int send(char *buf_ptr,int size);//‘—‚éƒoƒbƒtƒ@‚ÌêŠ‚ÆƒTƒCƒY
-    bool receive2(char *buf_ptr,int size);//ACK‚ğó‚¯æ‚éŠÖ”
-    unsigned char receive3(char *buf_ptr,int size);//ƒuƒƒbƒN‚È‚µ‚ÅóMDƒoƒCƒg”‚ğ•Ô‚·
+    void purge(void);//WinAPIã®PurgeCommã‚’å®Ÿè¡Œã™ã‚‹
+    int receive(char *buf_ptr,int size);//å—ã‘å–ã‚‹ãƒãƒƒãƒ•ã‚¡ã®å ´æ‰€ã¨ã‚µã‚¤ã‚º
+    int send(char *buf_ptr,int size);//é€ã‚‹ãƒãƒƒãƒ•ã‚¡ã®å ´æ‰€ã¨ã‚µã‚¤ã‚º
+    bool receive2(char *buf_ptr,int size);//ACKã‚’å—ã‘å–ã‚‹é–¢æ•°
+    unsigned char receive3(char *buf_ptr,int size);//ãƒ–ãƒ­ãƒƒã‚¯ãªã—ã§å—ä¿¡ï¼ãƒã‚¤ãƒˆæ•°ã‚’è¿”ã™
 
 };
 //---------------------------------------------------------------------------

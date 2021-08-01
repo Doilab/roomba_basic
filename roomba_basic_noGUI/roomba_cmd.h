@@ -1,5 +1,5 @@
-//Roomba‚Æ‚Ì’ÊMƒRƒ}ƒ“ƒh’è‹`
-//•„†‚È‚µ‚É‚·‚é‚½‚ß‚É‚ÍU‚ð‚Â‚¯‚é
+//Roombaã¨ã®é€šä¿¡ã‚³ãƒžãƒ³ãƒ‰å®šç¾©
+//ç¬¦å·ãªã—ã«ã™ã‚‹ãŸã‚ã«ã¯Uã‚’ã¤ã‘ã‚‹
 
 #define RB_OFF
 #define RB_PASSIVE
@@ -10,43 +10,43 @@
 #define RB_RESET 7U
 #define RB_STOP 173U
 
-#define RB_POWER 133U //ƒpƒ[ƒ_ƒEƒ“
-#define RB_DRIVE 137U //‘¬“xCù‰ñ”¼ŒaŽw’è‹ì“®D4ƒoƒCƒgƒf[ƒ^•K—v
-#define RB_DRIVE_PWM 146U //4ƒoƒCƒgƒf[ƒ^•K—v
-#define RB_MOTORS 138U //ƒuƒ‰ƒVE‹zˆø‚È‚Ç‚Ì•ûŒüŽw’èD1ƒoƒCƒgƒf[ƒ^•K—v
-#define RB_PWM_MOTORS 144U //ƒuƒ‰ƒVE‹zˆø‚È‚Ç‚Ì‹­‚³Žw’èD1ƒoƒCƒgƒf[ƒ^•K—v
+#define RB_POWER 133U //ãƒ‘ãƒ¯ãƒ¼ãƒ€ã‚¦ãƒ³
+#define RB_DRIVE 137U //é€Ÿåº¦ï¼Œæ—‹å›žåŠå¾„æŒ‡å®šé§†å‹•ï¼Ž4ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿å¿…è¦
+#define RB_DRIVE_PWM 146U //4ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿å¿…è¦
+#define RB_MOTORS 138U //ãƒ–ãƒ©ã‚·ãƒ»å¸å¼•ãªã©ã®æ–¹å‘æŒ‡å®šï¼Ž1ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿å¿…è¦
+#define RB_PWM_MOTORS 144U //ãƒ–ãƒ©ã‚·ãƒ»å¸å¼•ãªã©ã®å¼·ã•æŒ‡å®šï¼Ž1ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿å¿…è¦
 
-#define RB_SENSORS 142U //ƒZƒ“ƒTƒf[ƒ^—v‹D1ƒoƒCƒgƒf[ƒ^•K—v
+#define RB_SENSORS 142U //ã‚»ãƒ³ã‚µãƒ‡ãƒ¼ã‚¿è¦æ±‚ï¼Ž1ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿å¿…è¦
 
-#define RB_LIGHT_BUMPER 45U //Œõƒoƒ“ƒp[‚ª”½‰ž‚µ‚½‚©‚Ç‚¤‚©
-#define RB_LIGHT_BUMPER_L_SIG 46U //Œõƒoƒ“ƒp[¶
-#define RB_LIGHT_BUMPER_FL_SIG 47U //Œõƒoƒ“ƒp[¶‘O
-#define RB_LIGHT_BUMPER_CL_SIG 48U //Œõƒoƒ“ƒp[¶’†
-#define RB_LIGHT_BUMPER_CR_SIG 49U //Œõƒoƒ“ƒp[‰E’†
-#define RB_LIGHT_BUMPER_FR_SIG 50U //Œõƒoƒ“ƒp[‰E‘O
-#define RB_LIGHT_BUMPER_R_SIG 51U //Œõƒoƒ“ƒp[‰E
+#define RB_LIGHT_BUMPER 45U //å…‰ãƒãƒ³ãƒ‘ãƒ¼ãŒåå¿œã—ãŸã‹ã©ã†ã‹
+#define RB_LIGHT_BUMPER_L_SIG 46U //å…‰ãƒãƒ³ãƒ‘ãƒ¼å·¦
+#define RB_LIGHT_BUMPER_FL_SIG 47U //å…‰ãƒãƒ³ãƒ‘ãƒ¼å·¦å‰
+#define RB_LIGHT_BUMPER_CL_SIG 48U //å…‰ãƒãƒ³ãƒ‘ãƒ¼å·¦ä¸­
+#define RB_LIGHT_BUMPER_CR_SIG 49U //å…‰ãƒãƒ³ãƒ‘ãƒ¼å³ä¸­
+#define RB_LIGHT_BUMPER_FR_SIG 50U //å…‰ãƒãƒ³ãƒ‘ãƒ¼å³å‰
+#define RB_LIGHT_BUMPER_R_SIG 51U //å…‰ãƒãƒ³ãƒ‘ãƒ¼å³
 
-#define RB_LEFT_ENC 43U //¶ƒGƒ“ƒR[ƒ_ƒJƒEƒ“ƒg
-#define RB_RIGHT_ENC 44U //‰EƒGƒ“ƒR[ƒ_ƒJƒEƒ“ƒg
+#define RB_LEFT_ENC 43U //å·¦ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã‚«ã‚¦ãƒ³ãƒˆ
+#define RB_RIGHT_ENC 44U //å³ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã‚«ã‚¦ãƒ³ãƒˆ
 
-#define RB_SONG 140U //ƒƒƒfƒB‹L‰¯D
-#define RB_PLAY 141U //ƒƒƒfƒBÄ¶D1ƒoƒCƒgƒf[ƒ^•K—v
+#define RB_SONG 140U //ãƒ¡ãƒ­ãƒ‡ã‚£è¨˜æ†¶ï¼Ž
+#define RB_PLAY 141U //ãƒ¡ãƒ­ãƒ‡ã‚£å†ç”Ÿï¼Ž1ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿å¿…è¦
 
-#define RB_OI_MODE 35U //ƒ‹ƒ“ƒo‚Ìƒ‚[ƒh‚ð•Ô‚·
+#define RB_OI_MODE 35U //ãƒ«ãƒ³ãƒã®ãƒ¢ãƒ¼ãƒ‰ã‚’è¿”ã™
 
-#define RB_SEEK_DOCK 143U //ƒhƒbƒN‚ð’T‚·
+#define RB_SEEK_DOCK 143U //ãƒ‰ãƒƒã‚¯ã‚’æŽ¢ã™
 
-#define RB_LEDS 139U //LED§Œä
+#define RB_LEDS 139U //LEDåˆ¶å¾¡
 
 //---------------------------
-//ƒRƒ}ƒ“ƒhƒZƒbƒgŠÖ”
-//”z—ñ‚ÉƒRƒ}ƒ“ƒh‚ðƒZƒbƒg‚·‚é
+//ã‚³ãƒžãƒ³ãƒ‰ã‚»ãƒƒãƒˆé–¢æ•°
+//é…åˆ—ã«ã‚³ãƒžãƒ³ãƒ‰ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 //---------------------------
 
 //--------------------------
 int joint_high_low_byte(int hbyte, int lbyte)
 {
-	//ãˆÊƒoƒCƒg‚Æ‰ºˆÊƒoƒCƒg‚ÌŒ‹‡
+	//ä¸Šä½ãƒã‚¤ãƒˆã¨ä¸‹ä½ãƒã‚¤ãƒˆã®çµåˆ
 	int hb,lb,val;
 	hb=(0x00ff&hbyte);
 	val=(hbyte<<8);
@@ -57,42 +57,42 @@ int joint_high_low_byte(int hbyte, int lbyte)
 //---------------------------------------
 int set_songA_command(char *buf_out, int song)
 {
-    //ƒƒƒfƒB[ƒoƒbƒtƒ@‚ÉƒZƒbƒg
-    //•Ô‚è’lƒoƒCƒg”
+    //ãƒ¡ãƒ­ãƒ‡ã‚£ãƒ¼ãƒãƒƒãƒ•ã‚¡ã«ã‚»ãƒƒãƒˆ
+    //è¿”ã‚Šå€¤ãƒã‚¤ãƒˆæ•°
 	int byte;
 
 	buf_out[0]=RB_SONG;
-	buf_out[1]=(unsigned char)song;//1ƒoƒCƒg•ªƒZƒbƒgDusigned char‚ÉŒ^ƒZƒbƒg
-	int length=11;//‹È‚Ì’·‚³
-	buf_out[2]=length;//‹È‚Ì’·‚³
+	buf_out[1]=(unsigned char)song;//1ãƒã‚¤ãƒˆåˆ†ã‚»ãƒƒãƒˆï¼Žusigned charã«åž‹ã‚»ãƒƒãƒˆ
+	int length=11;//æ›²ã®é•·ã•
+	buf_out[2]=length;//æ›²ã®é•·ã•
 
-	buf_out[3]=90;//‰¹’ö
-	buf_out[4]=16;//‰¹‚Ì’·‚³
-	buf_out[5]=86;//‰¹’ö
-	buf_out[6]=16;//‰¹‚Ì’·‚³
-	buf_out[7]=81;//‰¹’ö
-	buf_out[8]=16;//‰¹‚Ì’·‚³
-	buf_out[9]=86;//‰¹’ö
-	buf_out[10]=16;//‰¹‚Ì’·‚³
+	buf_out[3]=90;//éŸ³ç¨‹
+	buf_out[4]=16;//éŸ³ã®é•·ã•
+	buf_out[5]=86;//éŸ³ç¨‹
+	buf_out[6]=16;//éŸ³ã®é•·ã•
+	buf_out[7]=81;//éŸ³ç¨‹
+	buf_out[8]=16;//éŸ³ã®é•·ã•
+	buf_out[9]=86;//éŸ³ç¨‹
+	buf_out[10]=16;//éŸ³ã®é•·ã•
 
-	buf_out[11]=88;//‰¹’ö
-	buf_out[12]=16;//‰¹‚Ì’·‚³
-	buf_out[13]=93;//‰¹’ö
-	buf_out[14]=48;//‰¹‚Ì’·‚³
+	buf_out[11]=88;//éŸ³ç¨‹
+	buf_out[12]=16;//éŸ³ã®é•·ã•
+	buf_out[13]=93;//éŸ³ç¨‹
+	buf_out[14]=48;//éŸ³ã®é•·ã•
 
-	buf_out[15]=88;//‰¹’ö
-	buf_out[16]=16;//‰¹‚Ì’·‚³
-	buf_out[17]=90;//‰¹’ö
-	buf_out[18]=16;//‰¹‚Ì’·‚³
-	buf_out[19]=88;//‰¹’ö
-	buf_out[20]=16;//‰¹‚Ì’·‚³
-	buf_out[21]=81;//‰¹’ö
-	buf_out[22]=16;//‰¹‚Ì’·‚³
-	buf_out[23]=86;//‰¹’ö
-	buf_out[24]=48;//‰¹‚Ì’·‚³
+	buf_out[15]=88;//éŸ³ç¨‹
+	buf_out[16]=16;//éŸ³ã®é•·ã•
+	buf_out[17]=90;//éŸ³ç¨‹
+	buf_out[18]=16;//éŸ³ã®é•·ã•
+	buf_out[19]=88;//éŸ³ç¨‹
+	buf_out[20]=16;//éŸ³ã®é•·ã•
+	buf_out[21]=81;//éŸ³ç¨‹
+	buf_out[22]=16;//éŸ³ã®é•·ã•
+	buf_out[23]=86;//éŸ³ç¨‹
+	buf_out[24]=48;//éŸ³ã®é•·ã•
 
 	byte=3+length*2;
-	//rb_s1.send(buf_out,byte);//ƒRƒ}ƒ“ƒh‘—M
+	//rb_s1.send(buf_out,byte);//ã‚³ãƒžãƒ³ãƒ‰é€ä¿¡
 
 	return byte;
 
@@ -101,58 +101,58 @@ int set_songA_command(char *buf_out, int song)
 //--------------------------------------------------
 int set_songB_command(char *buf_out, int song)
 {
-    //ƒƒƒfƒB[ƒoƒbƒtƒ@‚ÉƒZƒbƒg
-    //•Ô‚è’lƒoƒCƒg”
+    //ãƒ¡ãƒ­ãƒ‡ã‚£ãƒ¼ãƒãƒƒãƒ•ã‚¡ã«ã‚»ãƒƒãƒˆ
+    //è¿”ã‚Šå€¤ãƒã‚¤ãƒˆæ•°
 	int byte;
 
 	buf_out[0]=RB_SONG;
-	buf_out[1]=(unsigned char)song;//1ƒoƒCƒg•ªƒZƒbƒgDusigned char‚ÉŒ^ƒZƒbƒg
-	int length=17;//‹È‚Ì’·‚³
-	buf_out[2]=length;//‹È‚Ì’·‚³
-	int L=24;//1”‚Ì’·‚³
+	buf_out[1]=(unsigned char)song;//1ãƒã‚¤ãƒˆåˆ†ã‚»ãƒƒãƒˆï¼Žusigned charã«åž‹ã‚»ãƒƒãƒˆ
+	int length=17;//æ›²ã®é•·ã•
+	buf_out[2]=length;//æ›²ã®é•·ã•
+	int L=24;//1æ‹ã®é•·ã•
 
 
-	buf_out[3]=64;//‰¹’ö
-	buf_out[4]=L*3;//‰¹‚Ì’·‚³
-	buf_out[5]=67;//‰¹’ö
-	buf_out[6]=L*2;//‰¹‚Ì’·‚³
-	buf_out[7]=69;//‰¹’ö
-	buf_out[8]=L*1;//‰¹‚Ì’·‚³
-	buf_out[9]=69;//‰¹’ö
-	buf_out[10]=L*6;//‰¹‚Ì’·‚³
+	buf_out[3]=64;//éŸ³ç¨‹
+	buf_out[4]=L*3;//éŸ³ã®é•·ã•
+	buf_out[5]=67;//éŸ³ç¨‹
+	buf_out[6]=L*2;//éŸ³ã®é•·ã•
+	buf_out[7]=69;//éŸ³ç¨‹
+	buf_out[8]=L*1;//éŸ³ã®é•·ã•
+	buf_out[9]=69;//éŸ³ç¨‹
+	buf_out[10]=L*6;//éŸ³ã®é•·ã•
 
-	buf_out[11]=65;//‰¹’ö
-	buf_out[12]=L*3;//‰¹‚Ì’·‚³
-	buf_out[13]=69;//‰¹’ö
-	buf_out[14]=L*2;//‰¹‚Ì’·‚³
-	buf_out[15]=71;//‰¹’ö
-	buf_out[16]=L*1;//‰¹‚Ì’·‚³
-	buf_out[17]=71;//‰¹’ö
-	buf_out[18]=L*6;//‰¹‚Ì’·‚³
+	buf_out[11]=65;//éŸ³ç¨‹
+	buf_out[12]=L*3;//éŸ³ã®é•·ã•
+	buf_out[13]=69;//éŸ³ç¨‹
+	buf_out[14]=L*2;//éŸ³ã®é•·ã•
+	buf_out[15]=71;//éŸ³ç¨‹
+	buf_out[16]=L*1;//éŸ³ã®é•·ã•
+	buf_out[17]=71;//éŸ³ç¨‹
+	buf_out[18]=L*6;//éŸ³ã®é•·ã•
 
-	buf_out[19]=74;//‰¹’ö
-	buf_out[20]=L*3;//‰¹‚Ì’·‚³
-	buf_out[21]=72;//‰¹’ö
-	buf_out[22]=L*2;//‰¹‚Ì’·‚³
-	buf_out[23]=64;//‰¹’ö
-	buf_out[24]=L*1;//‰¹‚Ì’·‚³
+	buf_out[19]=74;//éŸ³ç¨‹
+	buf_out[20]=L*3;//éŸ³ã®é•·ã•
+	buf_out[21]=72;//éŸ³ç¨‹
+	buf_out[22]=L*2;//éŸ³ã®é•·ã•
+	buf_out[23]=64;//éŸ³ç¨‹
+	buf_out[24]=L*1;//éŸ³ã®é•·ã•
 
-	buf_out[25]=67;//‰¹’ö
-	buf_out[26]=L*3;//‰¹‚Ì’·‚³
-	buf_out[27]=65;//‰¹’ö
-	buf_out[28]=L*2;//‰¹‚Ì’·‚³
-	buf_out[29]=64;//‰¹’ö
-	buf_out[30]=L*1;//‰¹‚Ì’·‚³
+	buf_out[25]=67;//éŸ³ç¨‹
+	buf_out[26]=L*3;//éŸ³ã®é•·ã•
+	buf_out[27]=65;//éŸ³ç¨‹
+	buf_out[28]=L*2;//éŸ³ã®é•·ã•
+	buf_out[29]=64;//éŸ³ç¨‹
+	buf_out[30]=L*1;//éŸ³ã®é•·ã•
 
-	buf_out[31]=64;//‰¹’ö
-	buf_out[32]=L*3;//‰¹‚Ì’·‚³
-	buf_out[33]=62;//‰¹’ö
-	buf_out[34]=L*3;//‰¹‚Ì’·‚³
-	buf_out[35]=60;//‰¹’ö
-	buf_out[36]=L*6;//‰¹‚Ì’·‚³
+	buf_out[31]=64;//éŸ³ç¨‹
+	buf_out[32]=L*3;//éŸ³ã®é•·ã•
+	buf_out[33]=62;//éŸ³ç¨‹
+	buf_out[34]=L*3;//éŸ³ã®é•·ã•
+	buf_out[35]=60;//éŸ³ç¨‹
+	buf_out[36]=L*6;//éŸ³ã®é•·ã•
 
 	byte=3+length*2;
-	//rb_s1.send(buf_out,byte);//ƒRƒ}ƒ“ƒh‘—M
+	//rb_s1.send(buf_out,byte);//ã‚³ãƒžãƒ³ãƒ‰é€ä¿¡
 
 	return byte;
 
@@ -161,47 +161,47 @@ int set_songB_command(char *buf_out, int song)
 //--------------------------------------------------
 int set_christmas_song_command(char *buf_out, int song)
 {
-    //ƒƒƒfƒB[ƒoƒbƒtƒ@‚ÉƒZƒbƒg
-    //•Ô‚è’lƒoƒCƒg”
+    //ãƒ¡ãƒ­ãƒ‡ã‚£ãƒ¼ãƒãƒƒãƒ•ã‚¡ã«ã‚»ãƒƒãƒˆ
+    //è¿”ã‚Šå€¤ãƒã‚¤ãƒˆæ•°
 	int byte;
 
 	buf_out[0]=RB_SONG;
-	buf_out[1]=(unsigned char)song;//1ƒoƒCƒg•ªƒZƒbƒgDusigned char‚ÉŒ^ƒZƒbƒg
-	int length=14;//‹È‚Ì’·‚³
-	buf_out[2]=length;//‹È‚Ì’·‚³
+	buf_out[1]=(unsigned char)song;//1ãƒã‚¤ãƒˆåˆ†ã‚»ãƒƒãƒˆï¼Žusigned charã«åž‹ã‚»ãƒƒãƒˆ
+	int length=14;//æ›²ã®é•·ã•
+	buf_out[2]=length;//æ›²ã®é•·ã•
 
-	int L=2;//1”‚Ì’·‚³
-	buf_out[3]=86;//‰¹’ö
-	buf_out[4]=32*L;//‰¹‚Ì’·‚³
-	buf_out[5]=86;//‰¹’ö
-	buf_out[6]=16*L;//‰¹‚Ì’·‚³
-	buf_out[7]=89;//‰¹’ö
-	buf_out[8]=24*L;//‰¹‚Ì’·‚³
-	buf_out[9]=86;//‰¹’ö
-	buf_out[10]=8*L;//‰¹‚Ì’·‚³
-	buf_out[11]=83;//‰¹’ö
-	buf_out[12]=16*L;//‰¹‚Ì’·‚³
+	int L=2;//1æ‹ã®é•·ã•
+	buf_out[3]=86;//éŸ³ç¨‹
+	buf_out[4]=32*L;//éŸ³ã®é•·ã•
+	buf_out[5]=86;//éŸ³ç¨‹
+	buf_out[6]=16*L;//éŸ³ã®é•·ã•
+	buf_out[7]=89;//éŸ³ç¨‹
+	buf_out[8]=24*L;//éŸ³ã®é•·ã•
+	buf_out[9]=86;//éŸ³ç¨‹
+	buf_out[10]=8*L;//éŸ³ã®é•·ã•
+	buf_out[11]=83;//éŸ³ç¨‹
+	buf_out[12]=16*L;//éŸ³ã®é•·ã•
 
-	buf_out[13]=84;//‰¹’ö
-	buf_out[14]=48*L;//‰¹‚Ì’·‚³
-	buf_out[15]=88;//‰¹’ö
-	buf_out[16]=48*L;//‰¹‚Ì’·‚³
+	buf_out[13]=84;//éŸ³ç¨‹
+	buf_out[14]=48*L;//éŸ³ã®é•·ã•
+	buf_out[15]=88;//éŸ³ç¨‹
+	buf_out[16]=48*L;//éŸ³ã®é•·ã•
 
-	buf_out[17]=84;//‰¹’ö
-	buf_out[18]=16*L;//‰¹‚Ì’·‚³
-	buf_out[19]=79;//‰¹’ö
-	buf_out[20]=16*L;//‰¹‚Ì’·‚³
-	buf_out[21]=76;//‰¹’ö
-	buf_out[22]=16*L;//‰¹‚Ì’·‚³
-	buf_out[23]=79;//‰¹’ö
-	buf_out[24]=24*L;//‰¹‚Ì’·‚³
-	buf_out[25]=77;//‰¹’ö
-	buf_out[26]=8*L;//‰¹‚Ì’·‚³
-	buf_out[27]=74;//‰¹’ö
-	buf_out[28]=16*L;//‰¹‚Ì’·‚³
+	buf_out[17]=84;//éŸ³ç¨‹
+	buf_out[18]=16*L;//éŸ³ã®é•·ã•
+	buf_out[19]=79;//éŸ³ç¨‹
+	buf_out[20]=16*L;//éŸ³ã®é•·ã•
+	buf_out[21]=76;//éŸ³ç¨‹
+	buf_out[22]=16*L;//éŸ³ã®é•·ã•
+	buf_out[23]=79;//éŸ³ç¨‹
+	buf_out[24]=24*L;//éŸ³ã®é•·ã•
+	buf_out[25]=77;//éŸ³ç¨‹
+	buf_out[26]=8*L;//éŸ³ã®é•·ã•
+	buf_out[27]=74;//éŸ³ç¨‹
+	buf_out[28]=16*L;//éŸ³ã®é•·ã•
 
-	buf_out[29]=72;//‰¹’ö
-	buf_out[30]=96*L;//‰¹‚Ì’·‚³
+	buf_out[29]=72;//éŸ³ç¨‹
+	buf_out[30]=96*L;//éŸ³ã®é•·ã•
 
 
 	byte=3+length*2;

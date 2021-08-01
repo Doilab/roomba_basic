@@ -1,4 +1,5 @@
-﻿#include <stdio.h>
+//あ　UTF-8エンコード
+#include <stdio.h>
 #include <stdlib.h>//exit()用
 #include <math.h>
 #include "serial.h"
@@ -116,7 +117,7 @@ void comport_scan()
     {
         sprintf(port_str,"\\\\.\\COM%d",i); //for windows
         //sprintf(port_str,"/dev/ttyS%d",i); //for linux
-        res=s1.init(port_str,115200);//������
+        res=s1.init(port_str,115200);//初期化
         if(res==true)
         {
             printf("[%s]\n",port_str);
@@ -692,5 +693,4 @@ int id;
 
 	return 0;
 }
-
 

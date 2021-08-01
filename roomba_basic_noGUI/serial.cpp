@@ -1,13 +1,13 @@
 //---------------------------------------------------------------------------
-//ƒVƒŠƒAƒ‹’ÊM\‘¢‘Ìclass serial
+//ã‚·ãƒªã‚¢ãƒ«é€šä¿¡æ§‹é€ ä½“class serial
 //serial.cpp,h
-//—vwindows.h ->Linux ‚É‘Î‰
+//è¦windows.h ->Linux ã«å¯¾å¿œ
 //modified 060530
 //http://www.linux.or.jp/JF/JFdocs/Serial-Programming-HOWTO-3.html
-//201101 roomba/Linux‚É‘Î‰‚µ‚Ä‘½­C³
+//201101 roomba/Linuxã«å¯¾å¿œã—ã¦å¤šå°‘ä¿®æ­£
 
-//#define LINUX //Linux‚Ìê‡‚±‚¿‚ç‚¾‚¯—LŒø
-#define WIN32 //Windows‚Ìê‡‚±‚¿‚ç‚¾‚¯—LŒø
+//#define LINUX //Linuxã®å ´åˆã“ã¡ã‚‰ã ã‘æœ‰åŠ¹
+#define WIN32 //Windowsã®å ´åˆã“ã¡ã‚‰ã ã‘æœ‰åŠ¹
 
 #ifdef LINUX
 #undef WIN32
@@ -48,47 +48,47 @@ bool serial::init(char *comport_in,int baudrate)
 bool flag=true;
 
 #ifdef WIN32
-DCB dcb1;//ƒVƒŠƒAƒ‹’ÊM‚Ìƒpƒ‰ƒ[ƒ^‚ğƒZƒbƒg‚·‚é\‘¢‘ÌiƒEƒCƒ“ƒhƒEƒY•W€j
+DCB dcb1;//ã‚·ãƒªã‚¢ãƒ«é€šä¿¡ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆã™ã‚‹æ§‹é€ ä½“ï¼ˆã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚ºæ¨™æº–ï¼‰
 
 sprintf(comport,comport_in);
 
 if(flag_opened==1)this->close();
 hcom=CreateFile(comport,GENERIC_READ|GENERIC_WRITE,0,
                 NULL,OPEN_EXISTING,NULL,NULL);
-GetCommState(hcom,&dcb1);//ƒ|[ƒg‚Ìó‘Ôæ“¾
+GetCommState(hcom,&dcb1);//ãƒãƒ¼ãƒˆã®çŠ¶æ…‹å–å¾—
 
 dcb1.BaudRate=baudrate;
-//ªWindowsƒRƒ“ƒgƒ[ƒ‹ƒpƒlƒ‹“™‚Åİ’è‚µ‚Ä,‚»‚Ì‚ ‚Æ‚±‚±‚ÉƒuƒŒ[ƒNƒ|ƒCƒ“ƒg‚ğ‚¨‚¢‚ÄC
-//•Ï”‚Ì’l‚ğŒ©‚é‚Æ‚í‚©‚é
+//â†‘Windowsã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒ‘ãƒãƒ«ç­‰ã§è¨­å®šã—ã¦,ãã®ã‚ã¨ã“ã“ã«ãƒ–ãƒ¬ãƒ¼ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’ãŠã„ã¦ï¼Œ
+//å¤‰æ•°ã®å€¤ã‚’è¦‹ã‚‹ã¨ã‚ã‹ã‚‹
 
 dcb1.fParity=1;//0
 dcb1.Parity=NOPARITY;//for AI_Motor Roomba
 //dcb1.Parity=EVENPARITY;
 dcb1.StopBits=ONESTOPBIT;//for AI_Motor Roomba
 dcb1.ByteSize=8;//for AI Motor Roomba
-dcb1.fNull=FALSE;//‚±‚¤‚µ‚Ä‚¨‚©‚È‚¢‚ÆƒGƒ‰[‚ª•po
+dcb1.fNull=FALSE;//ã“ã†ã—ã¦ãŠã‹ãªã„ã¨ã‚¨ãƒ©ãƒ¼ãŒé »å‡º
 //dcb1.EvtChar=STX;
 flag=SetCommState(hcom,&dcb1);
 
-    if(flag==true)//ƒCƒxƒ“ƒgİ’è
+    if(flag==true)//ã‚¤ãƒ™ãƒ³ãƒˆè¨­å®š
     {
      GetCommMask(hcom,&mask);
      //mask=EV_RXCHAR|EV_RXFLAG;a
      mask=EV_RXCHAR;
      flag=SetCommMask(hcom,mask);
     }
-    if(flag==true)//ƒ^ƒCƒ€ƒAƒEƒgİ’è
+    if(flag==true)//ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆè¨­å®š
     {
         //https://docs.microsoft.com/ja-jp/windows/win32/api/winbase/ns-winbase-commtimeouts?redirectedfrom=MSDN
     GetCommTimeouts(hcom,&ctmo);
-	ctmo.ReadIntervalTimeout=3000;//for roomba 210613@•¶šŠÔ‚ÌÅ‘åƒ^ƒCƒ€ƒAƒEƒgHŸ‚ÌƒoƒCƒg‚ª—ˆ‚é‚Ü‚Å‚ÌÅ‘å‹–‚³‚ê‚éŠÔ
-	//ctmo.ReadIntervalTimeout=300;//0;//30;//SICKLMS‚Å‚Í6msDóMŠÔŠu‚ğl—¶‚µ‚Ä“K‹Xİ’è
-	ctmo.ReadTotalTimeoutMultiplier=50;//5000;//=1;// for Roomba 210613@‘Ò‚¿ŠÔŒvZ—pˆê•¶š“–‚½‚è‚ÌóMŠÔ
-	ctmo.ReadTotalTimeoutConstant=0;//1000;//=6;// for Roomba 210613@‘Ò‚¿ŠÔŒvZ—pD‘S‘Ì‚Ì‘Ò‚¿ŠÔ‚Éƒvƒ‰ƒX‚·‚é’è”
+	ctmo.ReadIntervalTimeout=3000;//for roomba 210613ã€€æ–‡å­—é–“ã®æœ€å¤§ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆï¼Ÿæ¬¡ã®ãƒã‚¤ãƒˆãŒæ¥ã‚‹ã¾ã§ã®æœ€å¤§è¨±ã•ã‚Œã‚‹æ™‚é–“
+	//ctmo.ReadIntervalTimeout=300;//0;//30;//SICKLMSã§ã¯6msï¼å—ä¿¡é–“éš”ã‚’è€ƒæ…®ã—ã¦é©å®œè¨­å®š
+	ctmo.ReadTotalTimeoutMultiplier=50;//5000;//=1;// for Roomba 210613ã€€å¾…ã¡æ™‚é–“è¨ˆç®—ç”¨ä¸€æ–‡å­—å½“ãŸã‚Šã®å—ä¿¡æ™‚é–“
+	ctmo.ReadTotalTimeoutConstant=0;//1000;//=6;// for Roomba 210613ã€€å¾…ã¡æ™‚é–“è¨ˆç®—ç”¨ï¼å…¨ä½“ã®å¾…ã¡æ™‚é–“ã«ãƒ—ãƒ©ã‚¹ã™ã‚‹å®šæ•°
     flag=SetCommTimeouts(hcom,&ctmo);
     }
 
-//ƒoƒbƒtƒ@ƒCƒjƒVƒƒƒ‰ƒCƒY
+//ãƒãƒƒãƒ•ã‚¡ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚º
 PurgeComm(hcom,PURGE_TXABORT|PURGE_RXABORT|PURGE_TXCLEAR|PURGE_RXCLEAR);
 //GetCommProperties(hcom,&cmp);
 flag_opened=1;
@@ -106,9 +106,9 @@ flag_opened=1;
  //printf("init() com opened\n");//debug
  flag_opened=1;
 
- tcgetattr(fd,&oldtio); /* Œ»İ‚Ìƒ|[ƒgİ’è‚ğ‘Ò”ğ */
+ tcgetattr(fd,&oldtio); /* ç¾åœ¨ã®ãƒãƒ¼ãƒˆè¨­å®šã‚’å¾…é¿ */
  bzero(&newtio, sizeof(newtio));
- newtio=oldtio;//ƒfƒtƒHƒ‹ƒg’l‚ğİ’è
+ newtio=oldtio;//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’è¨­å®š
 
  tcflag_t baud;
  if(baudrate==9600)baud=B9600;
@@ -128,7 +128,7 @@ flag_opened=1;
  newtio.c_lflag = 0;//201026 Roomba
 // newtio.c_lflag = oldtio.c_lflag;
 
- tcsetattr(fd,TCSANOW,&newtio);//201026 V‚µ‚¢İ’è”½‰f
+ tcsetattr(fd,TCSANOW,&newtio);//201026 æ–°ã—ã„è¨­å®šåæ˜ 
  flag=true;
 #endif
 
@@ -137,7 +137,7 @@ return(flag);
 //---------------------------------------------------------------------------
 void serial::purge(void)
 {
-//WinAPI‚ÌPurgeComm‚ğÀs‚·‚é
+//WinAPIã®PurgeCommã‚’å®Ÿè¡Œã™ã‚‹
   #ifdef WIN32
   PurgeComm(hcom,PURGE_TXABORT|PURGE_RXABORT|PURGE_TXCLEAR|PURGE_RXCLEAR);
   #endif
@@ -165,10 +165,10 @@ bool serial::close(void)
 //---------------------------------------------------------------------------
 int serial::receive(char *buf_ptr,int size)
 {
-//óMŠÖ”iƒuƒƒbƒN‚ ‚èj
-//ó‚¯æ‚Á‚½ƒoƒCƒg’·‚³‚ğ•Ô‚·->—Ç‚­‚È‚¢DEOF‚ğ’´‚¦‚½‚Æ‚«‚É‚Í‚Ü‚é
-//ReadFile‚Ì•Ô‚è’l‚ªtrue‚ÅCbyte‚ª0‚Ì‚Æ‚«
-//->ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ªEOF‚ğ’´‚¦‚Ä‚µ‚Ü‚Á‚½C‚Æ‚¢‚¤ˆÓ–¡‚ç‚µ‚¢
+//å—ä¿¡é–¢æ•°ï¼ˆãƒ–ãƒ­ãƒƒã‚¯ã‚ã‚Šï¼‰
+//å—ã‘å–ã£ãŸãƒã‚¤ãƒˆé•·ã•ã‚’è¿”ã™->è‰¯ããªã„ï¼EOFã‚’è¶…ãˆãŸã¨ãã«ã¯ã¾ã‚‹
+//ReadFileã®è¿”ã‚Šå€¤ãŒtrueã§ï¼ŒbyteãŒ0ã®ã¨ã
+//->ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ãŒEOFã‚’è¶…ãˆã¦ã—ã¾ã£ãŸï¼Œã¨ã„ã†æ„å‘³ã‚‰ã—ã„
 unsigned long byte,event;
 byte=0;
 bool flag=false;
@@ -176,22 +176,22 @@ bool flag=false;
 #ifdef WIN32
     while(!flag)
     {
-    //•¶š‚ğóM‚·‚é‚Ü‚Å‘Ò‚Â
+    //æ–‡å­—ã‚’å—ä¿¡ã™ã‚‹ã¾ã§å¾…ã¤
     WaitCommEvent(hcom,&event,NULL);
-     if(event|EV_RXCHAR)//•¶š‚ğóM‚µ‚½‚©H
+     if(event|EV_RXCHAR)//æ–‡å­—ã‚’å—ä¿¡ã—ãŸã‹ï¼Ÿ
      {
        if(ReadFile(hcom,buf_ptr,size,&byte,NULL))
        flag=true;
 	   break;
      }
-     byte=0;//‰Šú‰»
+     byte=0;//åˆæœŸåŒ–
     }
 #endif
 
 #ifdef LINUX
-//	tcflush(fd, TCIFLUSH);//óM‚µ‚½‚ª‚Ü‚¾“Ç‚ñ‚Å‚¢‚È‚¢ƒf[ƒ^ƒtƒ‰ƒbƒVƒ…
-// tcsetattr(fd,TCSANOW,&newtio);//óMƒ‚[ƒh‚Ìİ’è??
-   byte = read(fd,buf_ptr,size);   /* ‘Ò‚¿•¶š“ü—Í‚³‚ê‚½‚ç–ß‚é */
+//	tcflush(fd, TCIFLUSH);//å—ä¿¡ã—ãŸãŒã¾ã èª­ã‚“ã§ã„ãªã„ãƒ‡ãƒ¼ã‚¿ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
+// tcsetattr(fd,TCSANOW,&newtio);//å—ä¿¡ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š??
+   byte = read(fd,buf_ptr,size);   /* å¾…ã¡æ–‡å­—å…¥åŠ›ã•ã‚ŒãŸã‚‰æˆ»ã‚‹ */
 #endif
 
 return byte;
@@ -199,14 +199,14 @@ return byte;
 //---------------------------------------------------------------------------
 bool serial::receive2(char *buf_ptr,int size)
 {
-//óMŠÖ”iƒuƒƒbƒN‚È‚µj
-//ACK‚ğóM‚·‚é‚½‚ß,ƒ‹[ƒv‚É‚æ‚éƒuƒƒbƒN‚È‚µD
+//å—ä¿¡é–¢æ•°ï¼ˆãƒ–ãƒ­ãƒƒã‚¯ãªã—ï¼‰
+//ACKã‚’å—ä¿¡ã™ã‚‹ãŸã‚,ãƒ«ãƒ¼ãƒ—ã«ã‚ˆã‚‹ãƒ–ãƒ­ãƒƒã‚¯ãªã—ï¼
 
 unsigned long byte,event;
 bool flag=false;
 
 #ifdef WIN32
-//•¶š‚ğóM‚·‚é‚Ü‚Å‘Ò‚Â->ACKóM‚É‚Í‘Ò‚Á‚Ä‚Í‚¢‚¯‚È‚¢
+//æ–‡å­—ã‚’å—ä¿¡ã™ã‚‹ã¾ã§å¾…ã¤->ACKå—ä¿¡æ™‚ã«ã¯å¾…ã£ã¦ã¯ã„ã‘ãªã„
 //WaitCommEvent(hcom,&event,NULL);
        if(ReadFile(hcom,buf_ptr,size,&byte,NULL))
        flag=true;
@@ -217,15 +217,15 @@ return flag;
 //---------------------------------------------------------------------------
 unsigned char serial::receive3(char *buf_ptr,int size)
 {
-//óMŠÖ”iƒuƒƒbƒN‚È‚µj
-//ACK‚ğóM‚·‚é‚½‚ß,ƒ‹[ƒv‚É‚æ‚éƒuƒƒbƒN‚È‚µD
-//ƒoƒCƒg”‚ğ•Ô‚·
+//å—ä¿¡é–¢æ•°ï¼ˆãƒ–ãƒ­ãƒƒã‚¯ãªã—ï¼‰
+//ACKã‚’å—ä¿¡ã™ã‚‹ãŸã‚,ãƒ«ãƒ¼ãƒ—ã«ã‚ˆã‚‹ãƒ–ãƒ­ãƒƒã‚¯ãªã—ï¼
+//ãƒã‚¤ãƒˆæ•°ã‚’è¿”ã™
 
 unsigned long byte,event;
 bool flag=false;
 
 #ifdef WIN32
-//•¶š‚ğóM‚·‚é‚Ü‚Å‘Ò‚Â->ACKóM‚É‚Í‘Ò‚Á‚Ä‚Í‚¢‚¯‚È‚¢
+//æ–‡å­—ã‚’å—ä¿¡ã™ã‚‹ã¾ã§å¾…ã¤->ACKå—ä¿¡æ™‚ã«ã¯å¾…ã£ã¦ã¯ã„ã‘ãªã„
 //WaitCommEvent(hcom,&event,NULL);
        if(ReadFile(hcom,buf_ptr,size,&byte,NULL))
        flag=true;
@@ -236,7 +236,7 @@ return byte;
 //---------------------------------------------------------------------------
 int serial::send(char *buf_ptr,int size)
 {
-//ƒoƒbƒtƒ@‚Ì“à—e‚ğ‘—‚é
+//ãƒãƒƒãƒ•ã‚¡ã®å†…å®¹ã‚’é€ã‚‹
 unsigned long byte;
 if(flag_opened!=1)
 {
@@ -247,7 +247,7 @@ if(flag_opened!=1)
 
 #ifdef WIN32
     if(WriteFile(hcom,buf_ptr,size,&byte,NULL))
-    //ªbuffer‚©‚ç“Ç‚İo‚µ•hcom(’ÊMƒ|[ƒg)‚Ö‘‚«‚İ
+    //â†‘bufferã‹ã‚‰èª­ã¿å‡ºã—ï¼†hcom(é€šä¿¡ãƒãƒ¼ãƒˆ)ã¸æ›¸ãè¾¼ã¿
     {
       return byte;
     }
