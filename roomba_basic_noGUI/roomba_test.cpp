@@ -435,7 +435,7 @@ void drive_tires(int dir_in)
 	RoombaSystem *rb=&roomba[port];
 
 	int speed=70;
-	int speed_rot=30;
+	int speed_rot=40;
     rb->flag_sensor_ready=1;
 
 	if(rb->flag_roomba_moving==1)//移動中のボタン入力→移動キャンセル
