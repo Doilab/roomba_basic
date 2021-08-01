@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>//exit()用
 #include <math.h>
 #include "serial.h"
