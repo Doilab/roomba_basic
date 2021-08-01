@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1627787796 source:c:\work\src\git_doilab\roomba_basic\roomba_basic_nogui\serial.cpp
+	<strings.h>
+	<stdlib.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<termios.h>
+	<stdio.h>
+	<windows.h>
+	<stdio.h>
+	"serial.h"
+
+1627788593 c:\work\src\git_doilab\roomba_basic\roomba_basic_nogui\serial.h
+
