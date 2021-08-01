@@ -1,17 +1,17 @@
 #include <stdio.h>
-#include <stdlib.h>//exit()—p
+#include <stdlib.h>//exit()ç”¨
 #include <math.h>
 #include "serial.h"
 #include <time.h>
-#include <unistd.h>//usleep—p
+#include <unistd.h>//usleepç”¨
 #include "roomba_cmd.h"
 #include "roomba_types.h"
 
-double mstime1=0;//msec’PˆÊ‚Å‚ÌŠÔŒv‘ª
+double mstime1=0;//msecå˜ä½ã§ã®æ™‚é–“è¨ˆæ¸¬
 double mstime2=0;
 
 //--------------
-//™™™™™™™ƒVƒŠƒAƒ‹ƒ|[ƒgİ’è™™™™™™™™
+//â˜†â˜†â˜†â˜†â˜†â˜†â˜†ã‚·ãƒªã‚¢ãƒ«ãƒãƒ¼ãƒˆè¨­å®šâ˜†â˜†â˜†â˜†â˜†â˜†â˜†â˜†
 //#define SERIAL_PORT_1 "/dev/ttyS16"
 #define SERIAL_PORT_1 "\\\\.\\COM5"
 //--------------
@@ -24,34 +24,34 @@ char buf5[1024];
 
 
 
-//•Ï”2‹@•ª—pˆÓ
+//å¤‰æ•°2æ©Ÿåˆ†ç”¨æ„
 RoombaSystem roomba[2];
-serial rb_serial[2];//ƒVƒŠƒAƒ‹’ÊMƒNƒ‰ƒX
+serial rb_serial[2];//ã‚·ãƒªã‚¢ãƒ«é€šä¿¡ã‚¯ãƒ©ã‚¹
 char flag_serial_ready[2];
-int current_control_port=0;//Œ»İ‘€c‘ÎÛ‚Ìƒ|[ƒg
+int current_control_port=0;//ç¾åœ¨æ“ç¸¦å¯¾è±¡ã®ãƒãƒ¼ãƒˆ
 
-long MotionStartTime=0;//ƒ‚[ƒVƒ‡ƒ“‚ªn‚Ü‚Á‚½‚Æ‚«‚Ì
+long MotionStartTime=0;//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ãŒå§‹ã¾ã£ãŸã¨ãã®æ™‚åˆ»
 
 //--------------------------
-//ŠÔŠÇ—
+//æ™‚é–“ç®¡ç†
 //--------------------------
 double get_millisec(void)
 {
 	double ms_out;
 
-    #define CPP11_TIME //Linux, WSL, code::blocks64bit”Å‚È‚Ç
-    //#undef CPP11_TIME //code::blocks32bit”Å‚È‚Ç
+    #define CPP11_TIME //Linux, WSL, code::blocks64bitç‰ˆãªã©
+    //#undef CPP11_TIME //code::blocks32bitç‰ˆãªã©
 
 	#ifdef CPP11_TIME
-	//Linux C++11—p
+	//Linux C++11ç”¨
     struct timespec ts_temp;
 	double sec_1,sec_2;
 	clock_gettime(CLOCK_REALTIME,&ts_temp);
-	sec_1=ts_temp.tv_sec*1000;//•bˆÈãmsec‚É’¼‚·
-	sec_2=ts_temp.tv_nsec/1000000;//•bˆÈ‰ºmsec‚É’¼‚·
+	sec_1=ts_temp.tv_sec*1000;//ç§’ä»¥ä¸Šmsecã«ç›´ã™
+	sec_2=ts_temp.tv_nsec/1000000;//ç§’ä»¥ä¸‹msecã«ç›´ã™
 	ms_out=sec_1+sec_2;
 	#else
-	//clock()ŠÖ”‚ğg‚¤•û–@
+	//clock()é–¢æ•°ã‚’ä½¿ã†æ–¹æ³•
 	clock_t ck1=clock();
 	double sec1=(double)ck1/(CLOCKS_PER_SEC);
 	ms_out=sec1*1000;
@@ -63,24 +63,24 @@ return ms_out;
 }
 void sleep_msec(int millisec_in)
 {
-	//get_millisec()‚ğg‚¤•û–@DƒrƒW[ƒ‹[ƒv‚ÅŠÔ‚ğ‘ª‚é
+	//get_millisec()ã‚’ä½¿ã†æ–¹æ³•ï¼ãƒ“ã‚¸ãƒ¼ãƒ«ãƒ¼ãƒ—ã§æ™‚é–“ã‚’æ¸¬ã‚‹
 	double sleep_start=get_millisec();
 	double now=sleep_start;
 	double dt=0;
 
-	while(1)//ƒrƒW[ƒ‹[ƒv
+	while(1)//ãƒ“ã‚¸ãƒ¼ãƒ«ãƒ¼ãƒ—
 	{
-		now=get_millisec();//Œ»İ
-		dt=now-sleep_start;//Œo‰ßŠÔ
-		if(dt>=millisec_in)break;//ƒ`ƒFƒbƒN
+		now=get_millisec();//ç¾åœ¨æ™‚åˆ»
+		dt=now-sleep_start;//çµŒéæ™‚é–“
+		if(dt>=millisec_in)break;//ãƒã‚§ãƒƒã‚¯
 	}
 
-	//usleep‚ğg‚¤•û–@¨‚ ‚Ü‚è¸“x—Ç‚­‚È‚¢
+	//usleepã‚’ä½¿ã†æ–¹æ³•â†’ã‚ã¾ã‚Šç²¾åº¦è‰¯ããªã„
     //for(int i=0;i<millisec_in;i++)
     //    usleep(1000);//test
 }
 //--------------------------
-//•Ï”‰Šú‰»
+//å¤‰æ•°åˆæœŸåŒ–
 //--------------------------
 void init()
 {
@@ -90,9 +90,9 @@ void init()
     roomba[i].odo.x=0;
     roomba[i].odo.y=0;
     roomba[i].trj_count=0;
-	roomba[i].roomba_moving_direction=-1;//ˆÚ“®•ûŒü‚ğ•\‚·•Ï”
-	roomba[i].flag_roomba_moving=0;//ˆÚ“®’†‚Ìƒtƒ‰ƒO
-	roomba[i].flag_sensor_ready=0;//ƒZƒ“ƒT‚ªg‚¦‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+	roomba[i].roomba_moving_direction=-1;//ç§»å‹•æ–¹å‘ã‚’è¡¨ã™å¤‰æ•°
+	roomba[i].flag_roomba_moving=0;//ç§»å‹•ä¸­ã®ãƒ•ãƒ©ã‚°
+	roomba[i].flag_sensor_ready=0;//ã‚»ãƒ³ã‚µãŒä½¿ãˆã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 	}
 
 printf("init()..");
@@ -102,11 +102,11 @@ printf("init()..");
 printf("Done.\n");
 }
 //--------------------------
-//ƒVƒŠƒAƒ‹’ÊM
+//ã‚·ãƒªã‚¢ãƒ«é€šä¿¡
 //--------------------------
 void comport_scan()
 {
-    //COMƒ|[ƒgƒXƒLƒƒƒ“‚µ‚Äƒ`ƒFƒbƒN
+    //COMãƒãƒ¼ãƒˆã‚¹ã‚­ãƒ£ãƒ³ã—ã¦ãƒã‚§ãƒƒã‚¯
     serial s1;
     char port_str[128];
     bool res;
@@ -116,7 +116,7 @@ void comport_scan()
     {
         //sprintf(port_str,"\\\\.\\COM%d",i); //for windows
         sprintf(port_str,"/dev/ttyS%d",i); //for linux
-        res=s1.init(port_str,115200);//‰Šú‰»
+        res=s1.init(port_str,115200);//åˆæœŸåŒ–
         if(res==true)
         {
             printf("[%s]\n",port_str);
@@ -131,11 +131,11 @@ void comport_scan()
 //--------
 char send_command_one(int cmd_in, int port_in)
 {
-//port_in‚Í0 or 1
+//port_inã¯0 or 1
 	char *sbuf=roomba[port_in].sbuf;
 	serial *s=&rb_serial[port_in];
-	sbuf[0]=(unsigned char)cmd_in;//1ƒoƒCƒg•ªƒZƒbƒgDusigned char‚ÉŒ^ƒZƒbƒg
-	s->send(sbuf,1);//ƒRƒ}ƒ“ƒh‘—M
+	sbuf[0]=(unsigned char)cmd_in;//1ãƒã‚¤ãƒˆåˆ†ã‚»ãƒƒãƒˆï¼usigned charã«å‹ã‚»ãƒƒãƒˆ
+	s->send(sbuf,1);//ã‚³ãƒãƒ³ãƒ‰é€ä¿¡
 
 	sprintf(buf1, "send_command_one(%d) rb[%d]sbuf[0]=(%d)\n",cmd_in,port_in,(unsigned char)sbuf[0]);
 	printf("%s",buf1);
@@ -149,7 +149,7 @@ char send_drive_command(int motL, int motR, int port_in)
 	char *sbuf=roomba[port_in].sbuf;
 	serial *s=&rb_serial[port_in];
 
-	sbuf[0]=RB_DRIVE_PWM;//ƒRƒ}ƒ“ƒh
+	sbuf[0]=RB_DRIVE_PWM;//ã‚³ãƒãƒ³ãƒ‰
 	set_drive_command(sbuf+1,motL,motR);
 	byte=5;
 	s->send(sbuf,byte);
@@ -159,6 +159,7 @@ char send_drive_command(int motL, int motR, int port_in)
 		(unsigned char)sbuf[0],(unsigned char)sbuf[1],(unsigned char)sbuf[2],(unsigned char)sbuf[3]);
 		//printf(buf1);
 	printf("%s",buf1);
+	return 1;
 }
 //--------
 char send_pwm_motors_command(int main_brush_pwm_in, int side_brush_pwm_in, int vacuum_pwm_in, int port_in)
@@ -167,10 +168,10 @@ char send_pwm_motors_command(int main_brush_pwm_in, int side_brush_pwm_in, int v
 	char *sbuf=roomba[port_in].sbuf;
 	serial *s=&rb_serial[port_in];
 
-	sbuf[0]=RB_PWM_MOTORS;//ƒRƒ}ƒ“ƒh
-	sbuf[1]=main_brush_pwm_in;//ƒƒCƒ“ƒuƒ‰ƒV-127`+127
-	sbuf[2]=side_brush_pwm_in;//ƒTƒCƒhƒuƒ‰ƒV-127`+127
-	sbuf[3]=vacuum_pwm_in;//‹zˆø 0`+127
+	sbuf[0]=RB_PWM_MOTORS;//ã‚³ãƒãƒ³ãƒ‰
+	sbuf[1]=main_brush_pwm_in;//ãƒ¡ã‚¤ãƒ³ãƒ–ãƒ©ã‚·-127ï½+127
+	sbuf[2]=side_brush_pwm_in;//ã‚µã‚¤ãƒ‰ãƒ–ãƒ©ã‚·-127ï½+127
+	sbuf[3]=vacuum_pwm_in;//å¸å¼• 0ï½+127
 	byte=4;
 	s->send(sbuf,byte);
 
@@ -179,19 +180,21 @@ char send_pwm_motors_command(int main_brush_pwm_in, int side_brush_pwm_in, int v
 		(unsigned char)sbuf[0],(unsigned char)sbuf[1],(unsigned char)sbuf[2],(unsigned char)sbuf[3]);
 		//printf(buf1);
 	printf("%s",buf1);
+
+	return 1;
 }
 
 //--------
 int send_song_command(int song, int port_in)
 {
-    //ƒƒƒfƒB[ƒZƒbƒg‚µ‚½‚à‚Ì‘—M
-    //•Ô‚è’lƒoƒCƒg”
+    //ãƒ¡ãƒ­ãƒ‡ã‚£ãƒ¼ã‚»ãƒƒãƒˆã—ãŸã‚‚ã®é€ä¿¡
+    //è¿”ã‚Šå€¤ãƒã‚¤ãƒˆæ•°
 	int byte;
 	char *sbuf=roomba[port_in].sbuf;
 	serial *s=&rb_serial[port_in];
 
-	byte=set_songA_command(sbuf, song);//song‚ğƒZƒbƒg
-	s->send(sbuf,byte);//ƒRƒ}ƒ“ƒh‘—M
+	byte=set_songA_command(sbuf, song);//songã‚’ã‚»ãƒƒãƒˆ
+	s->send(sbuf,byte);//ã‚³ãƒãƒ³ãƒ‰é€ä¿¡
 
 	return byte;
 
@@ -204,9 +207,9 @@ int send_play_song_command(int song, int port_in)
 	char *sbuf=roomba[port_in].sbuf;
 
     sbuf[0]=RB_PLAY;
-    sbuf[1]=(unsigned char)song;//1ƒoƒCƒg•ªƒZƒbƒgDusigned char‚ÉŒ^ƒZƒbƒg
+    sbuf[1]=(unsigned char)song;//1ãƒã‚¤ãƒˆåˆ†ã‚»ãƒƒãƒˆï¼usigned charã«å‹ã‚»ãƒƒãƒˆ
 
-	s->send(sbuf,byte);//ƒRƒ}ƒ“ƒh‘—MD
+	s->send(sbuf,byte);//ã‚³ãƒãƒ³ãƒ‰é€ä¿¡ï¼
 
 	return byte;
 
@@ -219,7 +222,7 @@ int send_seek_dock_command(int port_in)
 	char *sbuf=roomba[port_in].sbuf;
 
     sbuf[0]=RB_SEEK_DOCK;
-	s->send(sbuf,byte);//ƒRƒ}ƒ“ƒh‘—MDƒhƒbƒN‹AŠÒ
+	s->send(sbuf,byte);//ã‚³ãƒãƒ³ãƒ‰é€ä¿¡ï¼ãƒ‰ãƒƒã‚¯å¸°é‚„
 
 	return byte;
 
@@ -236,7 +239,7 @@ int send_led_test_command(int port_in)
     sbuf[2]=0;//color
     sbuf[3]=255;//intensity
 
-	s->send(sbuf,byte);//ƒRƒ}ƒ“ƒh‘—MDÄ¶—v‹
+	s->send(sbuf,byte);//ã‚³ãƒãƒ³ãƒ‰é€ä¿¡ï¼å†ç”Ÿè¦æ±‚
 
 	return byte;
 
@@ -244,7 +247,7 @@ int send_led_test_command(int port_in)
 //--------------------------
 int receive_message(int port_in, int byte)
 {
-    //ƒƒbƒZ[ƒW‚È‚ÇóM
+    //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãªã©å—ä¿¡
     char *rbuf=roomba[port_in].rbuf;
 	serial *s=&rb_serial[port_in];
 	//int res=s->receive(rbuf,byte);
@@ -264,21 +267,21 @@ return 1;
 //--------------------------
 int receive_initial_message(int port_in)
 {
-    //‰ŠúƒƒbƒZ[ƒWóM
+    //åˆæœŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å—ä¿¡
     char rbuf[512];
-    for(int i=0;i<512;i++)rbuf[i]='\0';//ƒ[ƒ‚ğ‹l‚ß‚é
+    for(int i=0;i<512;i++)rbuf[i]='\0';//ã‚¼ãƒ­ã‚’è©°ã‚ã‚‹
     int res_byte;
-    int pos=0;//ƒoƒbƒtƒ@’†‚ÌˆÊ’u
+    int pos=0;//ãƒãƒƒãƒ•ã‚¡ä¸­ã®ä½ç½®
     serial *s=&rb_serial[port_in];
 	s->purge();
-	res_byte=s->receive3(rbuf,234);//‚Ü‚¸234ƒoƒCƒg“Ç‚İ‚İ
+	res_byte=s->receive3(rbuf,234);//ã¾ãš234ãƒã‚¤ãƒˆèª­ã¿è¾¼ã¿
 	if(res_byte<1)
     {
         printf("Error receive_message()\n");
         return 0;
     }
     pos=res_byte;
-	res_byte=s->receive3(rbuf+pos,256);//‘±‚«‚Ì“Ç‚İ‚İi‚È‚¢ê‡‚à‚ ‚èj
+	res_byte=s->receive3(rbuf+pos,256);//ç¶šãã®èª­ã¿è¾¼ã¿ï¼ˆãªã„å ´åˆã‚‚ã‚ã‚Šï¼‰
 	if(res_byte<1)
     {
         //printf("Error receive_message()\n");
@@ -295,8 +298,8 @@ return 1;
 //--------------------------
 char get_sensor_1B(int sensor_no, int port_in)
 {
-    //1ƒoƒCƒgƒZƒ“ƒTƒf[ƒ^óM
-    if(flag_serial_ready[port_in]!=1)return -1;////ƒ|[ƒg€”õ‚ª‚Å‚«‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢D
+    //1ãƒã‚¤ãƒˆã‚»ãƒ³ã‚µãƒ‡ãƒ¼ã‚¿å—ä¿¡
+    if(flag_serial_ready[port_in]!=1)return -1;////ãƒãƒ¼ãƒˆæº–å‚™ãŒã§ãã¦ã„ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ï¼
 
 	char *sbuf=roomba[port_in].sbuf;
 	char *rbuf=roomba[port_in].rbuf;
@@ -304,14 +307,14 @@ char get_sensor_1B(int sensor_no, int port_in)
 
 	char db=-1;//databyte
 
-	//ƒZƒ“ƒTî•ñæ“¾
-	//‘—M—v‹
-	sbuf[0]=RB_SENSORS;//ƒRƒ}ƒ“ƒh
-	sbuf[1]=(unsigned char)sensor_no;//ƒZƒ“ƒT”Ô†
+	//ã‚»ãƒ³ã‚µæƒ…å ±å–å¾—
+	//é€ä¿¡è¦æ±‚
+	sbuf[0]=RB_SENSORS;//ã‚³ãƒãƒ³ãƒ‰
+	sbuf[1]=(unsigned char)sensor_no;//ã‚»ãƒ³ã‚µç•ªå·
 	s->send(sbuf,2);
 
     //printf("get_sensor_1B(%d) -- ",sensor_no);
-	//óM
+	//å—ä¿¡
 	int res=s->receive(rbuf,1);
 	if(res<1)
     {
@@ -328,8 +331,8 @@ char get_sensor_1B(int sensor_no, int port_in)
 //--------------------------
 int get_sensor_2B(int sensor_no, int port_in)
 {
-    //2ƒoƒCƒg(int)ƒZƒ“ƒTƒf[ƒ^óM
-    if(flag_serial_ready[port_in]!=1)return -1;////ƒ|[ƒg€”õ‚ª‚Å‚«‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢D
+    //2ãƒã‚¤ãƒˆ(int)ã‚»ãƒ³ã‚µãƒ‡ãƒ¼ã‚¿å—ä¿¡
+    if(flag_serial_ready[port_in]!=1)return -1;////ãƒãƒ¼ãƒˆæº–å‚™ãŒã§ãã¦ã„ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ï¼
 
 	char *sbuf=roomba[port_in].sbuf;
 	char *rbuf=roomba[port_in].rbuf;
@@ -337,14 +340,14 @@ int get_sensor_2B(int sensor_no, int port_in)
 
 
 	int dat=-1;//databyte
-	//ƒZƒ“ƒTî•ñæ“¾
-	//‘—M—v‹
-	sbuf[0]=RB_SENSORS;//ƒRƒ}ƒ“ƒh
-	sbuf[1]=(unsigned char)sensor_no;//ƒZƒ“ƒT”Ô†
+	//ã‚»ãƒ³ã‚µæƒ…å ±å–å¾—
+	//é€ä¿¡è¦æ±‚
+	sbuf[0]=RB_SENSORS;//ã‚³ãƒãƒ³ãƒ‰
+	sbuf[1]=(unsigned char)sensor_no;//ã‚»ãƒ³ã‚µç•ªå·
 	s->send(sbuf,2);
 
     //printf("get_sensor_2B(%d) -- ", sensor_no);
-	//óM
+	//å—ä¿¡
 	int res=s->receive(rbuf,2);
 	if(res<2)
     {
@@ -363,12 +366,12 @@ int get_sensor_2B(int sensor_no, int port_in)
 //--------------------------
 char get_sensors(int port_in)
 {
-    if(flag_serial_ready[port_in]!=1)return -1;//ƒ|[ƒg€”õ‚ª‚Å‚«‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢D
+    if(flag_serial_ready[port_in]!=1)return -1;//ãƒãƒ¼ãƒˆæº–å‚™ãŒã§ãã¦ã„ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ï¼
 
     serial *s=&rb_serial[port_in];
     RoombaSensor *rss=&roomba[port_in].sensor;
 
-	s->purge();//ƒVƒŠƒAƒ‹’ÊM‚Ìƒoƒbƒtƒ@ƒNƒŠƒA
+	s->purge();//ã‚·ãƒªã‚¢ãƒ«é€šä¿¡ã®ãƒãƒƒãƒ•ã‚¡ã‚¯ãƒªã‚¢
 
 rss->stat=get_sensor_1B(58,port_in);
 rss->EncL=get_sensor_2B(43,port_in);
@@ -380,11 +383,11 @@ rss->LBumper_CL=get_sensor_2B(48,port_in);
 rss->LBumper_CR=get_sensor_2B(49,port_in);
 rss->LBumper_FR=get_sensor_2B(50,port_in);
 rss->LBumper_R=get_sensor_2B(51,port_in);
-rss->Angle=get_sensor_2B(20,port_in);//’l‚ª‰ö‚µ‚¢
-rss->Distance=get_sensor_2B(19,port_in);//’l‚ª‰ö‚µ‚¢.ƒ[ƒ‚µ‚©o‚È‚¢
+rss->Angle=get_sensor_2B(20,port_in);//å€¤ãŒæ€ªã—ã„
+rss->Distance=get_sensor_2B(19,port_in);//å€¤ãŒæ€ªã—ã„.ã‚¼ãƒ­ã—ã‹å‡ºãªã„
 
 	mstime2=get_millisec();
-	rss->TimeNow=mstime2-mstime1;//Œ»İ 201101 clock_gettime()g—p
+	rss->TimeNow=mstime2-mstime1;//ç¾åœ¨æ™‚åˆ» 201101 clock_gettime()ä½¿ç”¨
 
 return 1;
 }
@@ -396,7 +399,7 @@ void print_sensors(int port_in)
 
     if(flag_serial_ready[port_in]!=1)
     {
-        //ƒ|[ƒg€”õ‚ª‚Å‚«‚Ä‚¢‚È‚¢ê‡
+        //ãƒãƒ¼ãƒˆæº–å‚™ãŒã§ãã¦ã„ãªã„å ´åˆ
         printf("print_sensors() serial port is not ready.\n");
         return;
     }
@@ -434,7 +437,7 @@ void drive_tires(int dir_in)
 	int speed_rot=30;
     rb->flag_sensor_ready=1;
 
-	if(rb->flag_roomba_moving==1)//ˆÚ“®’†‚Ìƒ{ƒ^ƒ““ü—Í¨ˆÚ“®ƒLƒƒƒ“ƒZƒ‹
+	if(rb->flag_roomba_moving==1)//ç§»å‹•ä¸­ã®ãƒœã‚¿ãƒ³å…¥åŠ›â†’ç§»å‹•ã‚­ãƒ£ãƒ³ã‚»ãƒ«
 	{
         printf("STOP\n");
         rb->CommandSpeedL=0;
@@ -512,9 +515,9 @@ void print_keys(void)
 }
 
 //-----------------------
-void keyf(unsigned char key , int x , int y)//ˆê”ÊƒL[“ü—Í
+void keyf(unsigned char key , int x , int y)//ä¸€èˆ¬ã‚­ãƒ¼å…¥åŠ›
 {
-//ƒL[“ü—Í‚Åw’è‚³‚ê‚½ˆ—Às
+//ã‚­ãƒ¼å…¥åŠ›ã§æŒ‡å®šã•ã‚ŒãŸå‡¦ç†å®Ÿè¡Œ
 
 //	printf("key[%c],x[%d],y[%d]\n",key,x,y);
 //	printf("key[%c]\n",key);
@@ -540,13 +543,13 @@ void keyf(unsigned char key , int x , int y)//ˆê”ÊƒL[“ü—Í
     	case 'd':
     	{
     		send_command_one(RB_RESET, port);
-    		//receive_message(port, 256);//‰Šú‰»ƒƒbƒZ[ƒWóM
-    		receive_initial_message(port);//‰Šú‰»ƒƒbƒZ[ƒWóM
+    		//receive_message(port, 256);//åˆæœŸåŒ–ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å—ä¿¡
+    		receive_initial_message(port);//åˆæœŸåŒ–ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å—ä¿¡
     		break;
     	}
     	case 'c':
     	{
-    		receive_initial_message(port);//‰Šú‰»ƒƒbƒZ[ƒWóM@óMƒoƒbƒtƒ@ƒNƒŠƒA
+    		receive_initial_message(port);//åˆæœŸåŒ–ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å—ä¿¡ã€€å—ä¿¡ãƒãƒƒãƒ•ã‚¡ã‚¯ãƒªã‚¢
     		break;
     	}
      	case 'f':
@@ -581,19 +584,19 @@ void keyf(unsigned char key , int x , int y)//ˆê”ÊƒL[“ü—Í
     	case 'v':
             {
             printf("Vacuum ON\n");
-             send_pwm_motors_command(0,100,100,port);//‹zˆøON
+             send_pwm_motors_command(0,100,100,port);//å¸å¼•ON
              break;
             }
     	case 'b':
             {
             printf("Vacuum OFF\n");
-             send_pwm_motors_command(0,0,0,port);//‹zˆøOFF
+             send_pwm_motors_command(0,0,0,port);//å¸å¼•OFF
              break;
             }
     	case 'w':
     	{
     	    printf("--- Go Back to DOCK! --- \n");
-    		send_seek_dock_command(port);//ƒhƒbƒN‚É–ß‚é?
+    		send_seek_dock_command(port);//ãƒ‰ãƒƒã‚¯ã«æˆ»ã‚‹?
     		break;
     	}
     	case '0':
@@ -618,13 +621,13 @@ void keyf(unsigned char key , int x , int y)//ˆê”ÊƒL[“ü—Í
     	}
     	case 'q':
     	case 'Q':
-    	case '\033':  /* '\033' ‚Í ESC ‚Ì ASCII ƒR[ƒh */
+    	case '\033':  /* '\033' ã¯ ESC ã® ASCII ã‚³ãƒ¼ãƒ‰ */
         {
             printf("Exit\n");
             exit(0);
             break;
         }
-    	case 32: //32‚ªƒXƒy[ƒX‚ğ•\‚·
+    	case 32: //32ãŒã‚¹ãƒšãƒ¼ã‚¹ã‚’è¡¨ã™
     	{
     		printf("SPACE\n");
     		rb->roomba_moving_direction=-1;
@@ -657,15 +660,15 @@ void key_input(void)
 int main(int argc , char ** argv) {
 int id;
 
-	//ƒVƒŠƒAƒ‹ƒ|[ƒgƒXƒLƒƒƒ“
+	//ã‚·ãƒªã‚¢ãƒ«ãƒãƒ¼ãƒˆã‚¹ã‚­ãƒ£ãƒ³
 	comport_scan();
 
-	//ƒVƒŠƒAƒ‹ƒ|[ƒg‰Šú‰»
+	//ã‚·ãƒªã‚¢ãƒ«ãƒãƒ¼ãƒˆåˆæœŸåŒ–
   	bool res;
     flag_serial_ready[0]=0;
 
-	res=rb_serial[0].init(SERIAL_PORT_1,115200);//‰Šú‰»
-  	rb_serial[0].purge();//ƒoƒbƒtƒ@ƒNƒŠƒA
+	res=rb_serial[0].init(SERIAL_PORT_1,115200);//åˆæœŸåŒ–
+  	rb_serial[0].purge();//ãƒãƒƒãƒ•ã‚¡ã‚¯ãƒªã‚¢
 	if(res!=true)
 	  {
 	    printf("Port Open Error#0 [%s]\n", SERIAL_PORT_1);
@@ -677,13 +680,13 @@ int id;
       }
 
 
-   	init();//•Ï”‰Šú‰»
-	mstime1=get_millisec();//ŠÔŒv‘ªŠJn
+   	init();//å¤‰æ•°åˆæœŸåŒ–
+	mstime1=get_millisec();//æ™‚é–“è¨ˆæ¸¬é–‹å§‹
 
-	//ƒL[ƒ{[ƒhŠ„‚è“–‚Ä•\¦
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å‰²ã‚Šå½“ã¦è¡¨ç¤º
 	print_keys();
 
-	//ƒL[ƒ{[ƒh“ü—Íó•t
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›å—ä»˜
     key_input();//for NoGUI
 
 
