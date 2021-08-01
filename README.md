@@ -12,4 +12,5 @@ roomba_basic.code-workspace → VSCode用プロジェクトファイル
 Makefile → コンパイル設定ファイル．コンパイラのパス，ソースファイル群等を指定．
 
 Windows +MinGW環境だと，出村先生の環境を想定（C:\cprog20以下にコンパイラ一式配置）
+https://demura.net/education/17784.html
 
