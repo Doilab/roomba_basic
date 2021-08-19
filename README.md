@@ -5,7 +5,7 @@ Windows MinGW/Linux GCCに対応.
 
 コマンドラインで動く必要最低限のもの．
 
-#C++ファイル群
+# C++ファイル群
 roomba.cbp → Code::blocks用プロジェクトファイル
 
 roomba_basic.code-workspace → VSCode用プロジェクトファイル
