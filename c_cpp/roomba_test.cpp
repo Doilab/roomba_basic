@@ -1,4 +1,4 @@
-//あ　UTF-8エンコード
+﻿//あ　UTF-8エンコード
 #include <stdio.h>
 #include <stdlib.h>//exit()用
 #include <math.h>
@@ -113,11 +113,11 @@ void comport_scan()
     bool res;
 
     printf("COM port scanning. Available ports: ...\n");
-    for(int i=1;i<=32;i++)
+    for(int i=1;i<=16;i++)
     {
         sprintf(port_str,"\\\\.\\COM%d",i); //for windows
         //sprintf(port_str,"/dev/ttyS%d",i); //for linux
-        res=s1.init(port_str,115200);//������
+        res=s1.init(port_str,115200);//初期化
         if(res==true)
         {
             printf("[%s]\n",port_str);
@@ -229,23 +229,31 @@ int send_seek_dock_command(int port_in)
 
 }
 //--------
-int send_led_test_command(int port_in)
+int send_led_test_command(int port_in, int color_in, int intensity_in)
 {
 	int byte=4;
 	serial *s=&rb_serial[port_in];
 	char *sbuf=roomba[port_in].sbuf;
 
     sbuf[0]=RB_LEDS;
-    sbuf[1]=0xf;
-    sbuf[2]=0;//color
-    sbuf[3]=255;//intensity
+    sbuf[1]=0x0;
+    //sbuf[1]=0xf;
+    sbuf[2]=color_in;//color
+    sbuf[3]=intensity_in;//intensity
 
 	s->send(sbuf,byte);//コマンド送信．再生要求
 
 	return byte;
 
 }
-//--------------------------
+//--------
+int send_led_test_command2(int port_in)
+{
+	int byte=4;
+	send_led_test_command(port_in,255,255);
+	return byte;
+
+}//--------------------------
 int receive_message(int port_in, int byte)
 {
     //メッセージなど受信
@@ -435,7 +443,7 @@ void drive_tires(int dir_in)
 	RoombaSystem *rb=&roomba[port];
 
 	int speed=70;
-	int speed_rot=50;
+	int speed_rot=40;
     rb->flag_sensor_ready=1;
 
 	if(rb->flag_roomba_moving==1)//移動中のボタン入力→移動キャンセル
@@ -600,7 +608,21 @@ void keyf(unsigned char key , int x , int y)//一般キー入力
     		send_seek_dock_command(port);//ドックに戻る?
     		break;
     	}
-    	case '0':
+    	case 'l':
+    	{
+			//LED ON
+			send_led_test_command(0,255,255);
+			break;
+			;
+		}
+    	case 'o':
+    	{
+			//LED OFF
+			send_led_test_command(0,255,0);
+			break;
+			;
+		}
+		case '0':
     	{
     	    drive_tires(0);
             break;
@@ -693,5 +715,4 @@ int id;
 
 	return 0;
 }
-
 
