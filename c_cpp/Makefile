@@ -13,7 +13,7 @@ all:win64
 win64:
 #	$(CC_MINGW64VSC) -o roomba_test_d.exe $(SRC) -lm 
 #	$(CC_MINGW64VSC) -o roomba_test_d.exe $(SRC)  $(WIN_OPT) 
-	$(CC_MINGW64VSCP) -o roomba_test_d.exe $(SRC)  -lm
+	$(CC_MINGW64VSCP) -o roomba_test_d.exe $(SRC)  -lm -static
 
 
 #win64GLUT:
