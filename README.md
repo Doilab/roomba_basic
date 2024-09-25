@@ -7,8 +7,8 @@ Windows MinGW/Linux GCCに対応.
 
 Lectureブランチ→講習会用にさらにシンプルに
 
-# Cとpythonのポータブル開発環境
-Windows +MinGW環境だと，
+# CとpythonのWindowsポータブル開発環境
+Windows環境だと，
 ポータブルVSCode + python-embeddable + minGW64 環境を想定．<br>
 ESA <br>
 https://doilab.esa.io/posts/606
