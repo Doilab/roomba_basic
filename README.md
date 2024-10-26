@@ -7,8 +7,8 @@ Windows MinGW/Linux GCCに対応.
 
 Lectureブランチ→講習会用にさらにシンプルに
 
-# 開発環境
-Windows +MinGW環境だと，
+# CとpythonのWindowsポータブル開発環境
+Windows環境だと，
 ポータブルVSCode + python-embeddable + minGW64 環境を想定．<br>
 ESA <br>
 https://doilab.esa.io/posts/606
@@ -19,6 +19,8 @@ https://demura.net/education/17784.html
 
 # pythonファイル群（pythonディレクトリ）
 roomba_basic.py → テスト用プログラム．機能限定版
+
+roomba_def.py → 定数，関数定義
 
 # C++ファイル群（c_cppディレクトリ）
 Makefile → コンパイル設定ファイル．コンパイラのパス，ソースファイル群等を指定．
