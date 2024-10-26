@@ -1,0 +1,18 @@
+a: START
+s: STOP
+d: RESET
+g: SAFE
+f: FULL
+0: turn right
+1: go forward
+2: turn left
+3: go backward
+z: get sensor info
+x: play song
+i: init sensor
+v: vacuum on
+b: vacuum off
+w: seek and return to dock
+
+
+210720 update
